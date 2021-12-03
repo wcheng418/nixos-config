@@ -1,0 +1,9 @@
+auto-completion = true
+smart-case = true
+auto-pairs = true
+line-number = "relative"
+auto-info = true
+theme = "onedark"
+
+[lsp]
+display-messages = true
