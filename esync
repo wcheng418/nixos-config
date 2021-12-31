@@ -1,4 +1,3 @@
 emerge --sync
 emerge --newuse --update --deep @world
-smart-live-rebuild
 emerge --depclean
