@@ -1,3 +1,5 @@
 emerge --sync
-emerge --newuse --update --deep @world
+emerge --update --newuse --deep @world
+smart-live-rebuild --no-erraneous-merge --timeout=15
+cargo install-update -a
 emerge --depclean
