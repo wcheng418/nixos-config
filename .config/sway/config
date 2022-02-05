@@ -4,7 +4,20 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+exec gentoo-pipewire-launcher
+
+exec_always wlsunset -l "32.7" -L "-96.8"
+exec_always kanshi
+
+gaps inner 8
+seat seat0 xcursor_theme Adwaita 12
+font pango:Cascadia Code 11
+
 default_border pixel 2
+
+output * adaptive_sync on
+
+output 'Goldstar Company Ltd LG HDR WFHD 0x00009FE3' render_bit_depth 10
 
 ### Variables
 #
@@ -16,16 +29,16 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term foot 
+set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu bemenu-run -n --fn "Cascadia Code 11" | xargs swaymsg exec --
+set $menu bemenu-run --fn "Cascadia Code" -n | xargs swaymsg exec --
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg /usr/share/backgrounds/gentoo.png fill
 #
 # Example configuration:
 #
@@ -37,10 +50,10 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
-exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -69,14 +82,12 @@ input type:touchpad {
 #
 # Basics:
 #
-   
-    bindsym XF86Launch4 exec asusctl profile --next
 
-    bindsym XF86KbdBrightnessUp exec asusctl --next-kbd-bright
-    bindsym XF86KbdBrightnessDown exec asusctl --prev-kbd-bright
- 
-    bindsym XF86MonBrightnessDown exec light -U 2
-    bindsym XF86MonBrightnessUp exec light -A 4
+    bindsym XF86MonBrightnessDown exec brightnessctl set 2- 
+    bindsym XF86MonBrightnessUp exec brightnessctl set +2
+    
+    bindsym XF86KbdBrightnessDown exec brightnessctl --device=asus::kbd_backlight set 1-
+    bindsym XF86KbdBrightnessUp exec brightnessctl --device=asus::kbd_backlight set +1
 
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
