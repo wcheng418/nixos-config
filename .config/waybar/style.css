@@ -1,5 +1,5 @@
 /* waybar style.css */
-@define-color bgcolor #323232;	/* background color */
+@define-color bgcolor #282a36;	/* background color */
 @define-color fgcolor #FFFFFF;  /* foreground color */
 @define-color charging #ffffff; /* battery charging color */
 @define-color plugged #acfcad;  /* ac plugged color */
@@ -18,7 +18,7 @@
 
 #waybar {
 	background: @bgcolor;
-	font-family: JetBrains Mono;
+	font-family: IBM Plex Mono;
 	font-size: medium;
 	color: @fgcolor;
 }
@@ -30,12 +30,12 @@
 }
 
 #workspaces button.focused {
-	background: #22537A;
+	background: #3e4153;
 	color: @fgcolor;
 }
 
 #workspaces button:hover {
-	background: #22537A;
+	background: #363949;
 	color: @fgcolor;
 	transition: none;
 	box-shadow: inherit;
