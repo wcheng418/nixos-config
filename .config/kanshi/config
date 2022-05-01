@@ -1,0 +1,13 @@
+profile {
+	output eDP-1 disable
+	output "Goldstar Company Ltd LG HDR WFHD 0x00009FE3" mode 2560x1080@74.991Hz
+}
+
+profile {
+	output eDP-1 disable
+	output "Samsung Electric Company LC27T55 HCPNB03531" mode 1920x1080@74.973Hz
+}
+
+profile {
+	output eDP-1 enable
+}
