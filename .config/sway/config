@@ -1,3 +1,4 @@
+
 # Default config for sway
 #
 # Copy this to ~/.config/sway/config and edit it to your liking.
@@ -10,14 +11,24 @@ exec_always wlsunset -l "32.7" -L "-96.8"
 exec_always kanshi
 
 gaps inner 8
-seat seat0 xcursor_theme Adwaita 12
-font pango:Cascadia Code 11
+seat seat0 xcursor_theme macOSBigSur 
+font pango:Jetbrains Mono 11
 
 default_border pixel 2
+default_floating_border pixel 2
 
 output * adaptive_sync on
 
 output 'Goldstar Company Ltd LG HDR WFHD 0x00009FE3' render_bit_depth 10
+
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
+    gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
+    gsettings set org.gnome.desktop.interface icon-theme "Dracula"
+    gsettings set $gnome-schema cursor-theme 'macOSBigSur'
+}
 
 ### Variables
 #
@@ -33,7 +44,7 @@ set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu bemenu-run --fn "Cascadia Code" -n | xargs swaymsg exec --
+set $menu bemenu-run -n --tb '#282a36' --fb '#282a36' --nb '#282a36' --hb '#3e4153' --tf '#FFFFFF' --hf '#FFFFFF' -p '' --fn "Jetbrains Mono" | xargs swaymsg exec --
 
 ### Output configuration
 #
@@ -50,10 +61,10 @@ output * bg /usr/share/backgrounds/gentoo.png fill
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -83,8 +94,6 @@ input type:touchpad {
 # Basics:
 #
 
-    bindsym XF86Sleep exec doas suspend
-    
     bindsym XF86MonBrightnessDown exec brightnessctl set 2- 
     bindsym XF86MonBrightnessUp exec brightnessctl set +2
     
