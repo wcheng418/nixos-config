@@ -1,0 +1,5 @@
+#!/bin/sh
+youtube-dl -j --flat-playlist $1 |\
+jq -r '.id' |\
+sed 's_^_https://youtube.com/v/_' |\
+parallel youtube-dl {} --skip-download --write-auto-sub
