@@ -11,8 +11,8 @@ exec_always wlsunset -l "32.7" -L "-96.8"
 exec_always kanshi
 
 gaps inner 8
-seat seat0 xcursor_theme macOSBigSur 
-font pango:Jetbrains Mono 11
+seat seat0 xcursor_theme Adwaita 
+font pango:Cascadia Code 11
 
 default_border pixel 2
 default_floating_border pixel 2
@@ -27,7 +27,7 @@ exec_always {
     gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
     gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
     gsettings set org.gnome.desktop.interface icon-theme "Dracula"
-    gsettings set $gnome-schema cursor-theme 'macOSBigSur'
+    gsettings set $gnome-schema cursor-theme "Adwaita"
 }
 
 ### Variables
@@ -44,7 +44,7 @@ set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu bemenu-run -n --tb '#282a36' --fb '#282a36' --nb '#282a36' --hb '#3e4153' --tf '#FFFFFF' --hf '#FFFFFF' -p '' --fn "Jetbrains Mono" | xargs swaymsg exec --
+set $menu fuzzel --terminal foot --font 'Cascadia Code' --background 282a36FA --text-color FFFFFFA0 --selection-color 3e4153FA --selection-text-color FFFFFFFF --match-color bd93f9FF
 
 ### Output configuration
 #
