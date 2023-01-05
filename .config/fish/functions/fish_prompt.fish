@@ -1,5 +1,5 @@
 function login_format --description 'Format prompt with color'
-    echo -n $(set_color red)'['(set_color yellow)(whoami)(set_color green)'@'(set_color blue)(hostnamectl hostname) (set_color purple)(prompt_pwd)(set_color red)']'(set_color white)
+    echo -n $(set_color red)'['(set_color yellow)(whoami)(set_color green)'@'(set_color blue)(cat /proc/sys/kernel/hostname) (set_color purple)(prompt_pwd)(set_color red)']'(set_color white)
 end
 
 function fish_prompt --description 'Write out the prompt'
