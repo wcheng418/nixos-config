@@ -1,6 +1,6 @@
 profile {
 	output eDP-1 disable
-	output "Goldstar Company Ltd LG HDR WFHD 0x00009FE3" mode 2560x1080@74.991Hz
+	output "LG Electronics LG HDR WFHD 0x00009FE3" mode 2560x1080@74.991Hz
 }
 
 profile {
