@@ -5,14 +5,12 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-exec gentoo-pipewire-launcher
-
 exec_always wlsunset -l "32.7" -L "-96.8"
 exec_always kanshi
 
 gaps inner 8
 seat seat0 xcursor_theme Adwaita 
-font pango:Cascadia Code 11
+font pango:Liberation Sans 11
 
 default_border pixel 2
 default_floating_border pixel 2
@@ -24,9 +22,9 @@ output 'Goldstar Company Ltd LG HDR WFHD 0x00009FE3' render_bit_depth 10
 set $gnome-schema org.gnome.desktop.interface
 
 exec_always {
-    gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
     gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
-    gsettings set org.gnome.desktop.interface icon-theme "Dracula"
+    gsettings set $gnome-schema gtk-theme "Dracula"
+    gsettings set $gnome-schema icon-theme "Dracula"
     gsettings set $gnome-schema cursor-theme "Adwaita"
 }
 
@@ -44,12 +42,12 @@ set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu fuzzel --terminal foot --font 'Cascadia Code' --background 282a36FA --text-color FFFFFFA0 --selection-color 3e4153FA --selection-text-color FFFFFFFF --match-color bd93f9FF
+set $menu fuzzel --terminal foot --font 'Cascadia Code' --background 282a36FA --text-color FFFFFFA0 --selection-color 3e4153FA --selection-text-color FFFFFFFF --match-color bd93f9FF --dpi-aware no
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/gentoo.png fill
+output * bg /usr/share/backgrounds/arch.png fill
 #
 # Example configuration:
 #
@@ -63,7 +61,7 @@ output * bg /usr/share/backgrounds/gentoo.png fill
 #
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         timeout 600 'systemctl suspend' \
          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -94,15 +92,22 @@ input type:touchpad {
 # Basics:
 #
 
-    bindsym XF86MonBrightnessDown exec brightnessctl set 2- 
+    bindsym Print exec grim -g "$(slurp)" - | wl-copy
+
     bindsym XF86MonBrightnessUp exec brightnessctl set +2
+    bindsym XF86MonBrightnessDown exec brightnessctl set 2- 
     
-    bindsym XF86KbdBrightnessDown exec brightnessctl --device=asus::kbd_backlight set 1-
     bindsym XF86KbdBrightnessUp exec brightnessctl --device=asus::kbd_backlight set +1
+    bindsym XF86KbdBrightnessDown exec brightnessctl --device=asus::kbd_backlight set 1-
     
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioStop exec playerctl stop
+    bindsym XF86AudioPrev exec playerctl previous
+    bindsym XF86AudioNext exec playerctl next
 
     # Start a terminal
     bindsym $mod+Return exec $term
