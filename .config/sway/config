@@ -1,16 +1,15 @@
-
 # Default config for sway
 #
 # Copy this to ~/.config/sway/config and edit it to your liking.
 #
 # Read `man 5 sway` for a complete reference.
 
-exec_always wlsunset -l "32.7" -L "-96.8"
-exec_always kanshi
+exec wlsunset -l "32.7" -L "-96.8"
+exec kanshi
+exec fnott
 
 gaps inner 8
 seat seat0 xcursor_theme Adwaita 
-font pango:Liberation Sans 11
 
 default_border pixel 2
 default_floating_border pixel 2
@@ -28,6 +27,25 @@ exec_always {
     gsettings set $gnome-schema cursor-theme "Adwaita"
 }
 
+# Dracula color pallete
+set $dracula_bg        #282a36
+set $dracula_fg        #f8f8f2
+set $dracula_cyan      #8be9fd
+set $dracula_green     #50fa7b
+set $dracula_orange    #ffb86c
+set $dracula_pink      #ff79c6
+set $dracula_purple    #bd93f9
+set $dracula_red       #ff5555
+set $dracula_yellow    #f1fa8c
+
+# Dracula theme colors
+
+# Border colors for focused, focused_inactive, unfocused, and urgent states
+client.focused          $dracula_purple $dracula_purple $dracula_fg $dracula_pink
+client.focused_inactive $dracula_bg $dracula_bg $dracula_fg $dracula_cyan
+client.unfocused        $dracula_bg $dracula_bg $dracula_fg $dracula_red
+client.urgent           $dracula_bg $dracula_bg $dracula_fg $dracula_orange
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -42,7 +60,7 @@ set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu fuzzel --terminal foot --font 'Cascadia Code' --background 282a36FA --text-color FFFFFFA0 --selection-color 3e4153FA --selection-text-color FFFFFFFF --match-color bd93f9FF --dpi-aware no
+set $menu fuzzel
 
 ### Output configuration
 #
