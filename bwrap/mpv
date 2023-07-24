@@ -1,0 +1,17 @@
+#!/bin/sh
+bwrap --unsetenv \
+  --unshare-all \
+  --share-net \
+  --die-with-parent \
+  --proc /proc/ \
+  --dev /dev/ \
+  --dev-bind /dev/dri/ /dev/dri/ \
+  --ro-bind /usr/ /usr/  \
+  --ro-bind /bin/ /bin/ \
+  --ro-bind /lib64 /lib64/ \
+  --ro-bind /run/ /run/ \
+  --ro-bind /etc/ /etc/ \
+  --ro-bind /sys/ /sys/ \
+  --bind ~/.config/mpv/ ~/.config/mpv \
+  --bind ~/.cache/mpv/ ~/.cache/mpv \
+  mpv $@
