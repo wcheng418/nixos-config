@@ -1,4 +1,17 @@
 #!/bin/sh
+
+# Collect all arguments that are files
+files=""
+for arg in "$@"; do
+    if [ -e "$arg" ]; then
+        files="$files $arg"
+    fi
+done
+
+# Construct bind arguments
+bind_args=$(printf '%s\n' $files | xargs -I{} echo --ro-bind {} {})
+
+# Run mpv with bubblewrap
 bwrap --unsetenv \
   --unshare-all \
   --share-net \
@@ -15,4 +28,5 @@ bwrap --unsetenv \
   --bind ~/.config/mpv/ ~/.config/mpv/ \
   --bind ~/.cache/mpv/ ~/.cache/mpv/ \
   --bind ~/.cache/mesa_shader_cache/ ~/.cache/mesa_shader_cache/ \
+  $bind_args \
   mpv $@
