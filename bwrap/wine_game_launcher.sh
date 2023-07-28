@@ -17,7 +17,10 @@ outputs=$(swaymsg -t get_outputs | jq -r '.[] | .name + " " + (.scale|tostring)'
 swaymsg output "*" scale 1
 
 # Run the game
-bwrap --unsetenv \
+bwrap \
+    --setenv WINEDLLOVERRIDES nvapi,nvapi64=n \
+    --setenv WINEDLLOVERRIDES dxgi=n \
+    --setenv DXVK_ENABLE_NVAPI 1 \
     --unshare-all \
     --share-net \
     --die-with-parent \
@@ -37,7 +40,7 @@ bwrap --unsetenv \
     --symlink /usr/lib /lib64 \
     --symlink /usr/bin /sbin \
     --bind ~/.wine ~/.wine \
-    wine64 %GAMEPATH.exe%
+    wine64 "$@"
 
 # Restore the original scale of all outputs
 restore_scale
