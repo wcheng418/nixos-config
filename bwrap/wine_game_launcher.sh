@@ -8,7 +8,7 @@ restore_scale() {
 }
 
 # Trap signals to ensure that the original scale is always restored
-trap restore_scale EXIT KILL TRAP TERM HUP
+trap restore_scale KILL TERM
 
 # Get the display names and their scales
 outputs=$(swaymsg -t get_outputs | jq -r '.[] | .name + " " + (.scale|tostring)')
@@ -18,14 +18,12 @@ swaymsg output "*" scale 1
 
 # Run the game
 bwrap \
-    --setenv WINEDLLOVERRIDES nvapi,nvapi64=n \
-    --setenv WINEDLLOVERRIDES dxgi=n \
     --setenv DXVK_ENABLE_NVAPI 1 \
+    --setenv VKD3D_CONFIG dxr11 \
     --unshare-all \
     --share-net \
     --die-with-parent \
     --proc /proc \
-    --dev /dev \
     --tmpfs /tmp \
     --dev-bind /dev /dev \
     --ro-bind /sys /sys \
