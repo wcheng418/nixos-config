@@ -4,8 +4,6 @@ bwrap --unsetenv \
     --unshare-all \
     --share-net \
     --die-with-parent \
-    --proc /proc \
-    --dev /dev \
     --ro-bind /run /run \
     --ro-bind /etc /etc \
     --ro-bind /usr/share /usr/share \
@@ -16,6 +14,6 @@ bwrap --unsetenv \
     --symlink /usr/lib /lib64 \
     --symlink /usr/bin /sbin \
     --ro-bind ~/.rtorrent.rc ~/.rtorrent.rc \
-    --bind ~/.config/.rtorrent.session ~/.config/.rtorrent.session \
+    --bind ~/.config/rtorrent ~/.config/rtorrent \
     --bind ~/Downloads/Torrents ~/Downloads/Torrents \
     rtorrent $@
