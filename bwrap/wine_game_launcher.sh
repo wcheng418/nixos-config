@@ -20,6 +20,7 @@ swaymsg output "*" scale 1
 bwrap \
     --setenv DXVK_ENABLE_NVAPI 1 \
     --setenv VKD3D_CONFIG dxr11 \
+    --setenv PULSE_LATENCY_MSEC 60 \
     --unshare-all \
     --share-net \
     --die-with-parent \
@@ -33,10 +34,12 @@ bwrap \
     --ro-bind /usr/share /usr/share \
     --ro-bind /usr/bin /usr/bin \
     --ro-bind /usr/lib /usr/lib \
+    --ro-bind /usr/lib32 /usr/lib32 \
     --symlink /usr/bin /bin \
     --symlink /usr/lib /lib \
     --symlink /usr/lib /lib64 \
     --symlink /usr/bin /sbin \
+    --ro-bind ~/Downloads/Torrents ~/Downloads/Torrents \
     --bind ~/.wine ~/.wine \
     wine64 "$@"
 
