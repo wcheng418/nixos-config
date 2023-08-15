@@ -6,17 +6,12 @@
 
 exec wlsunset -l "32.7" -L "-96.8"
 exec kanshi
-exec fnott
 
 gaps inner 8
 seat seat0 xcursor_theme Adwaita 
 
 default_border pixel 2
 default_floating_border pixel 2
-
-output * adaptive_sync on
-
-output 'Goldstar Company Ltd LG HDR WFHD 0x00009FE3' render_bit_depth 10
 
 set $gnome-schema org.gnome.desktop.interface
 
@@ -65,7 +60,7 @@ set $menu fuzzel
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/arch.png fill
+output * bg /usr/share/backgrounds/gentoo.png fill
 #
 # Example configuration:
 #
@@ -118,9 +113,9 @@ input type:touchpad {
     bindsym XF86KbdBrightnessUp exec brightnessctl --device=asus::kbd_backlight set +1
     bindsym XF86KbdBrightnessDown exec brightnessctl --device=asus::kbd_backlight set 1-
     
-    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ 5%+
+    bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%-
 
     bindsym XF86AudioPlay exec playerctl play-pause
     bindsym XF86AudioStop exec playerctl stop
