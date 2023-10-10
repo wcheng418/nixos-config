@@ -51,7 +51,7 @@
         "spacing": 10
     },
     "clock": {
-        "format": " {:%b %d %I:%M %p}",
+        "format": " {:%b %d %H:%M}",
     },
     "backlight": {
         "format": " {percent}%",
@@ -123,12 +123,10 @@
     }, 
     "custom/weather": {
     "tooltip": false,
-    "exec": "curl 'https://wttr.in/?format='%t''",
+    "exec": "curl 'https://wttr.in/?m&format='%t''",
     "interval": 3600,
     },
     "river/tags": {
         "num-tags":9,
-        
     }
 }
-		
