@@ -79,8 +79,21 @@ bar:
                    - string: {text: "▇", foreground: ff5555FF} # Near full usage - Red
                    - string: {text: "█", foreground: ff0000FF} # Maximum usage - Dark Red
     - mem:
+        poll-interval: 750
         content:
-          string: {text: " {used:gb} GB ", foreground: ffb86cff} # Memory usage and total
+          list:
+            items:
+              - ramp:
+                  tag: percent
+                  items:
+                    - string: {text: " {used:gb} GB", foreground: 50fa7bFF} # Lowest usage - Green
+                    - string: {text: " {used:gb} GB", foreground: 8be9fdFF} # Low usage - Light Blue
+                    - string: {text: " {used:gb} GB", foreground: f1fa8cFF} # Moderate usage - Yellow
+                    - string: {text: " {used:gb} GB", foreground: ffb86cFF} # Medium usage - Orange
+                    - string: {text: " {used:gb} GB", foreground: ff79c6FF} # High usage - Pink
+                    - string: {text: " {used:gb} GB", foreground: bd93f9FF} # Very high usage - Purple
+                    - string: {text: " {used:gb} GB", foreground: ff5555FF} # Near full usage - Red
+                    - string: {text: " {used:gb} GB", foreground: ff0000FF} # Maximum usage - Dark Red
   center:
     - clock:
         time-format: "%-I:%M %p"
