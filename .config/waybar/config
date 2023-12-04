@@ -1,95 +1,135 @@
 {
-    "modules-left": ["sway/workspaces","battery","cpu","disk","memory","sway/window"],
-    "modules-center": ["clock"],
-    "modules-right": ["network","temperature","custom/weather","wireplumber","tray","idle_inhibitor"],
-	"sway/window": {
-        "format": "{}",
-        "max-length": 45,
-		"tooltip": false
+  "modules-left": [
+    "sway/workspaces",
+    "battery",
+    "cpu",
+    "disk",
+    "memory",
+    "sway/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "network",
+    "temperature",
+    "custom/weather",
+    "wireplumber",
+    "backlight",
+    "tray",
+    "idle_inhibitor"
+  ],
+  "sway/window": {
+    "format": "{}",
+    "max-length": 45,
+    "tooltip": false
+  },
+  "temperature": {
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": {
+      "default": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "tray": {
+    "spacing": 10
+  },
+  "clock": {
+    "format": " {:%b %d %I:%M %p}"
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": {
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "cpu": {
+    "format": "{usage}% ",
+    "tooltip": false,
+    "states": {
+      "critical": 90
+    }
+  },
+  "memory": {
+    "format": "{percentage}% ",
+    "states": {
+      "critical": 85
+    }
+  },
+  "disk": {
+    "interval": 60,
+    "format": "{percentage_used}% ",
+    "path": "/home"
+  },
+  "battery": {
+    "states": {
+      "critical": 15
     },
-    "temperature": {
-    	"format": "{icon} {temperatureC}°C",
-        	"format-icons": {
-        	"default": ["", "", "", "", ""],
-    	},
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "tooltip": false,
+    "format-full": "{icon} Full",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "network": {
+    "format-wifi": " {essid}",
+    "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
+    "format-linked": " {ifname} (No IP)",
+    "format-disconnected": " Not connected",
+    "format-alt": " {bandwidthDownBytes}  {bandwidthUpBytes} ",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}"
+  },
+  "wireplumber": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-bluetooth-muted": "  {volume}%",
+    "format-muted": " ",
+    "format-icons": {
+      "headphone": " ",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
     },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-    "tray": {
-        "spacing": 10
-    },
-    "clock": {
-        "format": " {:%b %d %I:%M %p}",
-    },
-    "backlight": {
-        "format": " {percent}%",
-    },
-	"cpu": {
-        "format": "{usage}% ",
-        "tooltip": false,
-    	"states": {
-    	    "critical": 90
-    	}
-    },
-    "memory": {
-        "format": "{percentage}% ",
-    	"states": {
-    	    "critical": 85
-    	}
-    },    
-    "disk": {
-        "interval": 60,
-        "format": "{percentage_used}% ",
-        "path": "/home"
-	},
-	"battery": {
-        "states": {  
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "tooltip": false,
-        "format-full": "{icon} Full",
-        "format-icons": ["","","","",""]
-    },
-    "network": {
-        "format-wifi": " {essid}",
-        "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
-        "format-linked": " {ifname} (No IP)",
-        "format-disconnected": " Not connected",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
-		"tooltip-format": "{essid} {signalStrength}%"
-    },
-    "wireplumber": {
-        "format": "{icon} {volume}%",
-        "format-bluetooth": "{icon} {volume}%",
-        "format-bluetooth-muted": "  {volume}%",
-        "format-muted": " ",
-        "format-icons": {
-            "headphone": " ",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "wpctl set-sink-mute @DEFAULT_SINK@ toggle",
-    },
-    "custom/power": {
-		"format": "",
-		"on-click": "loginctl suspend",
-		"tooltip": false
-    },
-    "custom/weather": {
-        "tooltip": false,
-        "exec": "curl 'https://wttr.in/?format='%t''",
-        "interval": 3600,
-    },
+    "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle"
+  },
+  "custom/power": {
+    "format": "",
+    "on-click": "loginctl suspend",
+    "tooltip": false
+  },
+  "custom/weather": {
+    "tooltip": false,
+    "exec": "curl https://wttr.in/?format='%t'",
+    "interval": 7200
+  }
 }
