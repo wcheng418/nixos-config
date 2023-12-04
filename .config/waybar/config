@@ -1,44 +1,17 @@
 {
-    // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    // Choose the order of the modules
-    "modules-left": ["sway/workspaces","battery","cpu","disk","memory","sway/window","sway/mode"],
+    "modules-left": ["sway/workspaces","battery","cpu","disk","memory","sway/window"],
     "modules-center": ["clock"],
-    "modules-right": ["network","temperature","custom/weather","custom/kernel","pulseaudio","tray","custom/power"],
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
-    },
+    "modules-right": ["network","temperature","custom/weather","wireplumber","tray","idle_inhibitor"],
 	"sway/window": {
         "format": "{}",
         "max-length": 45,
-        "rewrite": {
-            "(.*) - Firefox Nightly": "🌎 $1",
-            "(.*) - fish": "> [$1]"
-        },
 		"tooltip": false
     },
-
     "temperature": {
     	"format": "{icon} {temperatureC}°C",
-	"format-icons": {
-	"default": ["", "", "", "", ""],
-	},
-    },
-
-    "sway/language": {
-        "format": "{short}  "
-    },
-
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
+        	"format-icons": {
+        	"default": ["", "", "", "", ""],
+    	},
     },
     "idle_inhibitor": {
         "format": "{icon}",
@@ -51,7 +24,7 @@
         "spacing": 10
     },
     "clock": {
-        "format": " {:%b %d %H:%M}",
+        "format": " {:%b %d %I:%M %p}",
     },
     "backlight": {
         "format": " {percent}%",
@@ -59,22 +32,21 @@
 	"cpu": {
         "format": "{usage}% ",
         "tooltip": false,
-	"states": {
-	    "critical": 90
-	}
+    	"states": {
+    	    "critical": 90
+    	}
     },
     "memory": {
         "format": "{percentage}% ",
-	"states": {
-	    "critical": 85
-	}
+    	"states": {
+    	    "critical": 85
+    	}
     },    
     "disk": {
-    "interval": 30,
-    "format": "{percentage_used}% ",
-    "path": "/"
+        "interval": 60,
+        "format": "{percentage_used}% ",
+        "path": "/home"
 	},
-
 	"battery": {
         "states": {  
             "critical": 15
@@ -82,7 +54,6 @@
         "format": "{icon} {capacity}%",
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
-        //"format-alt": "{time} {icon}",
         "tooltip": false,
         "format-full": "{icon} Full",
         "format-icons": ["","","","",""]
@@ -95,13 +66,11 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
 		"tooltip-format": "{essid} {signalStrength}%"
     },
-    "pulseaudio": {
-        "format": "{icon} {volume}% {format_source}",
-        "format-bluetooth": "{icon} {volume}% {format_source}",
-        "format-bluetooth-muted": "  {volume}% {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "",
-        "format-source-muted": "",
+    "wireplumber": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-bluetooth-muted": "  {volume}%",
+        "format-muted": " ",
         "format-icons": {
             "headphone": " ",
             "hands-free": "",
@@ -111,22 +80,16 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "tooltip-format": "{desc}, {volume}%",
-        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
-        "on-click-middle": "pavucontrol"
+        "on-click": "wpctl set-sink-mute @DEFAULT_SINK@ toggle",
     },
     "custom/power": {
 		"format": "",
 		"on-click": "loginctl suspend",
 		"tooltip": false
-    }, 
-    "custom/weather": {
-    "tooltip": false,
-    "exec": "curl 'https://wttr.in/?m&format='%t''",
-    "interval": 3600,
     },
-    "river/tags": {
-        "num-tags":9,
-    }
+    "custom/weather": {
+        "tooltip": false,
+        "exec": "curl 'https://wttr.in/?format='%t''",
+        "interval": 3600,
+    },
 }
