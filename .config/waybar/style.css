@@ -23,7 +23,7 @@ window#waybar.hidden {
 #clock,
 #idle_inhibitor,
 #language,
-#pulseaudio,
+#wireplumber,
 #backlight,
 #battery,
 #network,
@@ -124,11 +124,11 @@ window#waybar.hidden {
   color: #1e222a;
 }
 
-#pulseaudio {
+#wireplumber {
   color: #ffb86c;
 }
 
-#pulseaudio.muted {
+#wireplumber.muted {
   background-color: #FFBF7A;
   color: #1e222a;
 }
