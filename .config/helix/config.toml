@@ -1,8 +1,10 @@
 theme = "dracula"
 
 [editor]
-bufferline = "multiple"
+line-number = "relative"
 color-modes = true
+bufferline = "multiple"
+auto-save = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -10,11 +12,11 @@ normal = "block"
 select = "underline"
 
 [editor.indent-guides]
-render  = true
+render = true
+
+[editor.soft-wrap]
+enable = true
 
 [editor.lsp]
 display-messages = true
 display-inlay-hints = true
-
-[editor.soft-wrap]
-enable = true
