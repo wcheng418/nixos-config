@@ -1,26 +1,23 @@
 #!/bin/sh
 
-Function to restore the original scale of all outputs
+file_path=$1
+directory=$(realpath "$(dirname "$file_path")")
+
+outputs=$(swaymsg -t get_outputs | jq -r '.[] | .name + " " + (.scale|tostring)')
+
 restore_scale() {
   printf '%s\n' "$outputs" | while read -r name scale; do
     swaymsg output "$name" scale "$scale"
   done
 }
 
-file_path=$1
-directory=$(realpath "$(dirname "$file_path")")
-
-# Trap signals to ensure that the original scale is always restored
 trap restore_scale TERM
 
-# Get the display names and their scales
-outputs=$(swaymsg -t get_outputs | jq -r '.[] | .name + " " + (.scale|tostring)')
-
-# Set the scale of all outputs to 1
 swaymsg output "*" scale 1
 
 # Run the game
 bwrap \
+  --setenv VKD3D_SHADER_CACHE_PATH ~/.cache/vkd3d \
   --unshare-all \
   --share-net \
   --die-with-parent \
@@ -42,11 +39,10 @@ bwrap \
   --symlink /usr/bin /sbin \
   --bind ~/.local/share/proton-pfx ~/.local/share/proton-pfx \
   --bind ~/.cache/dxvk-cache-pool ~/.cache/dxvk-cache-pool \
+  --bind ~/.cache/vkd3d ~/.cache/vkd3d \
   --bind ~/.cache/protonfixes ~/.cache/protonfixes \
-  --bind ~/Games ~/Games \
   --ro-bind "$directory" "$directory" \
   --chdir "$directory" \
   /usr/bin/proton "$@"
 
-# Restore the original scale of all outputs
-restore_scale
+  restore_scale
