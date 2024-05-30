@@ -2,8 +2,8 @@
 
 * {
   border: none;
-  font-family: Cascadia Code;
-  font-size: medium;
+  font-family: Jetbrains Mono;
+  font-size: small;
 }
 
 window#waybar {
@@ -18,21 +18,13 @@ window#waybar.hidden {
 
 #workspaces,
 #mode,
-#custom-media,
-#custom-fans,
 #clock,
 #idle_inhibitor,
-#language,
 #wireplumber,
 #backlight,
 #battery,
 #network,
 #custom-power,
-#mpd,
-#custom-rofi,
-#custom-network,
-#custom-kernel,
-#custom-uptime,
 #custom-weather,
 #temperature,
 #window,
@@ -86,21 +78,12 @@ window#waybar.hidden {
   color: #ff5555;
 }
 
-#custom-media {
-  background-color: #c678dd;
-  color: #1e222a;
-}
-
-#custom-fans {
-  color: #e06c75;
-}
-
 #clock {
   color: #bd93f9;
 }
 
 #custom-weather {
-  color: #8be9fd; 
+  color: #8be9fd;
 }
 
 #mode {
@@ -109,10 +92,6 @@ window#waybar.hidden {
 
 #window {
   color: #f1fa8c;
-}
-
-#custom-power {
-  color: #f1fa8c
 }
 
 #idle_inhibitor {
@@ -133,63 +112,59 @@ window#waybar.hidden {
   color: #1e222a;
 }
 
-#custom-kernel {
-  color: #bd93f9; 
-}
-
 #battery {
   color: #50fa7b;
 }
-
 
 #cpu {
   color: #ffb86c;
 }
 
 @keyframes blink {
-	to {
-	   background-color: #ffb86c;
-	   color: #ffbf7a;
-	}
+  to {
+    background-color: #ffb86c;
+    color: #ffbf7a;
+  }
 }
 
 #cpu.critical:not(.charging) {
-    background-color: #ffbf7a;
-    color: #ffb86c;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  background-color: #ffbf7a;
+  color: #ffb86c;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
-#battery.charging, #battery.plugged {
+#battery.charging,
+#battery.plugged {
   background-color: #61FA88;
   color: #1e222a;
 }
 
 @keyframes blink {
-    to {
-        background-color: #1e222a;
-        color: #e06c75;
-    }
+  to {
+    background-color: #1e222a;
+    color: #e06c75;
+  }
 }
 
 #battery.critical:not(.charging) {
-    background-color: #e06c75;
-    color: #1e222a;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  background-color: #e06c75;
+  color: #1e222a;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 #network {
-    color: #ff79c6;
+  color: #ff79c6;
 }
 
 #network.disconnected {
-    background-color: #FF86CB;
-    color: #1e222a;
+  background-color: #FF86CB;
+  color: #1e222a;
 }
