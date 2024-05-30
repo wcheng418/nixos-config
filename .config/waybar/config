@@ -126,10 +126,5 @@
     "format": "",
     "on-click": "loginctl suspend",
     "tooltip": false
-  },
-  "custom/weather": {
-    "tooltip": false,
-    "exec": "curl https://wttr.in/?format='%t'",
-    "interval": 7200
   }
 }
