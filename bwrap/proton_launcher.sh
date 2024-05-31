@@ -37,12 +37,15 @@ bwrap \
   --symlink /usr/lib /lib \
   --symlink /usr/lib /lib64 \
   --symlink /usr/bin /sbin \
-  --bind ~/.local/share/proton-pfx ~/.local/share/proton-pfx \
   --bind ~/.cache/dxvk-cache-pool ~/.cache/dxvk-cache-pool \
   --bind ~/.cache/vkd3d ~/.cache/vkd3d \
-  --bind ~/.cache/protonfixes ~/.cache/protonfixes \
+  --bind ~/.cache/radv_builtin_shaders64 ~/.cache/radv_builtin_shaders64 \
+  --bind ~/.cache/mesa_shader_cache ~/.cache/mesa_shader_cache \
+  --bind ~/.cache/nvidia ~/.cache/nvidia \
+  --bind ~/.nv ~/.nv \
+  --bind ~/.local/share/proton-pfx ~/.local/share/proton-pfx \
   --ro-bind "$directory" "$directory" \
   --chdir "$directory" \
   /usr/bin/proton "$@"
-
+  
   restore_scale
