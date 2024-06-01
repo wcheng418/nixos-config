@@ -17,6 +17,7 @@ swaymsg output "*" scale 1
 
 # Run the game
 bwrap \
+  --setenv PULSE_LATENCY_MSEC 60 \
   --setenv VKD3D_SHADER_CACHE_PATH ~/.cache/vkd3d \
   --unshare-all \
   --share-net \
@@ -39,13 +40,14 @@ bwrap \
   --symlink /usr/bin /sbin \
   --bind ~/.cache/dxvk-cache-pool ~/.cache/dxvk-cache-pool \
   --bind ~/.cache/vkd3d ~/.cache/vkd3d \
+  --bind ~/.local/share/vulkan ~/.local/share/vulkan \
+  --bind ~/.local/share/proton-pfx ~/.local/share/proton-pfx \
   --bind ~/.cache/radv_builtin_shaders64 ~/.cache/radv_builtin_shaders64 \
   --bind ~/.cache/mesa_shader_cache ~/.cache/mesa_shader_cache \
   --bind ~/.cache/nvidia ~/.cache/nvidia \
   --bind ~/.nv ~/.nv \
-  --bind ~/.local/share/proton-pfx ~/.local/share/proton-pfx \
   --ro-bind "$directory" "$directory" \
   --chdir "$directory" \
   /usr/bin/proton "$@"
-  
+
   restore_scale
