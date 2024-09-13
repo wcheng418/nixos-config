@@ -21,12 +21,14 @@
       settings = {
         theme = "dracula";
         editor = {
+          line-number = "relative";
+          color-modes = true;
+          bufferline = "multiple";
           cursor-shape = {
             insert = "bar";
             normal = "block";
             select = "underline";
           };
-          color-modes = true;
           indent-guides.render = true;
           soft-wrap.enable = true;
           lsp = {
@@ -43,15 +45,7 @@
         language-server = {
           ruff = {
             command = "${pkgs.ruff}/bin/ruff";
-            args = [ "server" "--preview" ];
-          };
-          typescript-language-server = {
-            command = "${pkgs.typescript-language-server}/bin/typescript-language-server";
-            args = [ "--stdio" ];
-          };
-          vscode-html-language-server = {
-            command = "${pkgs.vscode-langservers-extracted}/bin/html-languageserver";
-            args = [ "--stdio" ];
+            args = [ "server" ];
           };
         };
       };

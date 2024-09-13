@@ -10,6 +10,8 @@
 
     swayidle
 
+    swaybg
+    
     playerctl
 
     brightnessctl
@@ -49,12 +51,16 @@
       timeouts = [
         {
           timeout = 300;
-          command = "${pkgs.swaylock}/bin/swaylock -f";
+          command = "${pkgs.swaylock}/bin/swaylock -fF";
         }
         {
           timeout = 500;
           command = "${pkgs.systemd}/bin/systemctl suspend";
         }
+      ];
+      events = [
+        { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock -fF"; }
+        { event = "lock"; command = "lock"; }
       ];
     };
 
@@ -81,13 +87,19 @@
   programs = {
     swaylock = {
       enable = true;
+      settings = {
+        image = "${config.xdg.configHome}/home-manager/sway/nixos.png";
+        scaling = "fill";
+        ignore-empty-password = true;
+        show-failed-attempts = true;
+      };
     };
 
     foot= {
       enable = true;
       settings = {
         main = {
-          include = builtins.toString(config.xdg.configHome + "/home-manager/foot/dracula.ini");
+          include = "${config.xdg.configHome}/home-manager/foot/dracula.ini";
           font = "Jetbrains Mono";
           dpi-aware = "yes";
           shell = "${pkgs.fish}/bin/fish";
@@ -195,11 +207,12 @@
             critical = 15;
           };
           format = "{icon} {capacity}%";
-          format-charging = " {capacity}%";
-          format-plugged = " {capacity}%";
-          tooltip = false;
+          format-charging = " {capacity}%";
+          format-plugged = " {capacity}%";
+          tooltip = true;
           format-full = "{icon} Full";
           format-icons = [ "" "" "" "" "" ];
+          tooltip-format = " {time}";
         };
         network = {
           format-wifi = " {essid}";
@@ -252,11 +265,17 @@
 
   wayland.windowManager.sway = {
     enable = true;
+    checkConfig = false; # Does not work (for now), due to bug when opening background image
     config = {
       gaps.inner = 8;
       seat = {
         "*" = {
           "xcursor_theme" = "Adwaita";
+        };
+      };
+      output = {
+        "*" = {
+          bg = "${config.xdg.configHome}/home-manager/sway/nixos.png fill";
         };
       };
       window = {
@@ -319,6 +338,7 @@
         "--locked Shift+XF86MonBrightnessDown" = "exec brightnessctl set 1%-";
         "--locked Shift+XF86MonBrightnessUp" = "exec brightnessctl set 1%+";
         "--locked XF86KbdBrightnessUp" = "exec brightnessctl --device=asus::kbd_backlight set +1";
+
         "--locked XF86KbdBrightnessDown" = "exec brightnessctl --device=asus::kbd_backlight set 1-";
         "--locked XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         "--locked XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.2";
@@ -337,7 +357,7 @@
       ];
     };
     extraConfig = ''
-      set $laptop "Unknown Unknown Unknown"
+      set $laptop "Thermotrex Corporation TL140ADXP02-0 Unknown"
 
       bindswitch --reload --locked lid:on output $laptop disable
       bindswitch --reload --locked lid:off output $laptop enable

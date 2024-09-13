@@ -10,6 +10,19 @@
       ACTION=="add", SUBSYSTEM=="pci", ATTR{power/aspm_policy}="powersave"
     '';
   };
+
+  boot = {
+    extraModprobeConfig = ''
+      options snd_hda_intel power_save=1
+      options iwlwifi power_save=1
+      options iwlmvm power_scheme=3
+    '';
+    kernel.sysctl = {
+      "kernel.nmi_watchdog" = 0;
+    };
+    kernelParams = [ "pcie_aspm.policy=powersupersave" ];
+  };
+
   powerManagement.enable = true;
 
   systemd = {

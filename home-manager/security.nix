@@ -2,6 +2,9 @@
 
 {
   home.packages = with pkgs; [
+    pass
+    passExtensions.pass-otp
+  
     pinentry-gnome3
   ];
   home.sessionVariables = {

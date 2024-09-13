@@ -22,6 +22,21 @@
     }
   '';
 
+  programs = {
+    btop = {
+      enable = true;
+      settings = {
+        vim_keys = true;
+        proc_sorting = "cpu lazy";
+        color_theme = "dracula";
+        theme_background = "false";
+        proc_tree = true;
+        proc_filter_kernel = true;
+        proc_aggregate = true;
+      };
+    };
+  };
+
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -40,9 +55,7 @@
     # pkgs.hello
 
     dconf
-
-    btop
-    pass
+    nvtopPackages.full
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
