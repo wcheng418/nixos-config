@@ -1,0 +1,170 @@
+@define-color iconbackground-color #3e4153;
+
+* {
+  border: none;
+  font-family: Jetbrains Mono;
+  font-size: small;
+}
+
+window#waybar {
+  background-color: #242530;
+  transition-property: background-color;
+  transition-duration: .5s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+#workspaces,
+#mode,
+#clock,
+#idle_inhibitor,
+#wireplumber,
+#backlight,
+#battery,
+#network,
+#custom-power,
+#custom-weather,
+#temperature,
+#window,
+#cpu,
+#memory,
+#disk,
+#tray {
+  background-color: #282A36;
+  padding: 0 12px;
+  margin: 4px 4px 4px 4px;
+  border-radius: 90px;
+  background-clip: padding-box;
+}
+
+#workspaces button {
+  padding: 0 5px;
+  min-width: 20px;
+  color: #6272a4;
+}
+
+#custom-network {
+  color: #8be9fd;
+}
+
+#workspaces button:hover {
+  background-color: rgba(0, 0, 0, 0.2)
+}
+
+#workspaces button.focused {
+  color: #FF92DF;
+}
+
+#disk {
+  color: #8be9fd;
+}
+
+#workspaces button.urgent {
+  color: #e06c75;
+}
+
+#memory {
+  color: #ff79c6;
+}
+
+#temperature {
+  color: #bd93f9;
+}
+
+#temperature.critical {
+  background-color: #e06c75;
+  color: #ff5555;
+}
+
+#clock {
+  color: #bd93f9;
+}
+
+#custom-weather {
+  color: #8be9fd;
+}
+
+#mode {
+  color: #f1fa8c;
+}
+
+#window {
+  color: #f1fa8c;
+}
+
+#idle_inhibitor {
+  color: #abb2bf;
+}
+
+#idle_inhibitor.activated {
+  background-color: #abb2bf;
+  color: #1e222a;
+}
+
+#wireplumber {
+  color: #ffb86c;
+}
+
+#wireplumber.muted {
+  background-color: #FFBF7A;
+  color: #1e222a;
+}
+
+#battery {
+  color: #50fa7b;
+}
+
+#cpu {
+  color: #ffb86c;
+}
+
+@keyframes blink {
+  to {
+    background-color: #ffb86c;
+    color: #ffbf7a;
+  }
+}
+
+#cpu.critical:not(.charging) {
+  background-color: #ffbf7a;
+  color: #ffb86c;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#battery.charging,
+#battery.plugged {
+  background-color: #61FA88;
+  color: #1e222a;
+}
+
+@keyframes blink {
+  to {
+    background-color: #1e222a;
+    color: #e06c75;
+  }
+}
+
+#battery.critical:not(.charging) {
+  background-color: #e06c75;
+  color: #1e222a;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#network {
+  color: #ff79c6;
+}
+
+#network.disconnected {
+  background-color: #FF86CB;
+  color: #1e222a;
+}
