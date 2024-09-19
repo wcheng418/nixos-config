@@ -4,18 +4,15 @@
   home.packages = with pkgs; [
     pass
     passExtensions.pass-otp
-  
-    pinentry-gnome3
   ];
-  home.sessionVariables = {
-    SSH_AUTH_SOCK = "${builtins.getEnv "XDG_RUNTIME_DIR"}/ssh-agent.socket";
-  };
-  
+
   programs = {
     ssh = {
       enable = true;
+      addKeysToAgent = "yes";
       controlMaster = "auto";
     };
+
     git = {
       enable = true;
       userName = "Pravin Ramana";
@@ -30,9 +27,7 @@
   services = {
     gpg-agent = {
       enable = true;
-      pinentryPackage = pkgs.pinentry-gnome3;
+      pinentryPackage = pkgs.pinentry-tty;
     };
-    gnome-keyring.enable = true;
-    ssh-agent.enable = true;
   };
 }

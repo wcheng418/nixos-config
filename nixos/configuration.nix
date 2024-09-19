@@ -10,6 +10,7 @@
       ./audio.nix
       ./hardware-configuration.nix
       ./locale.nix
+      ./memory.nix
       ./networking.nix
       ./power.nix
       ./security.nix
@@ -17,30 +18,20 @@
       ./video.nix
     ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 3;
+  };
+
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     helix
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
 
   nix = {
     gc.automatic = true;
@@ -49,6 +40,10 @@
       experimental-features = nix-command flakes
     '';
   };
+
+  
+
+  fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

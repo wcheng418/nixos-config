@@ -28,42 +28,64 @@ let power-profile-script = pkgs.stdenv.mkDerivation {
   };
 in
 {
-  home.packages = with pkgs; [
-    yt-dlp
-  ];
-  programs.mpv = {
-    enable = true;
-    config = {
-      gpu-api = "vulkan";
-      vulkan-queue-count = 8;
-      swapchain-depth = 8;
-      hls-bitrate = "max";
-      cache = "yes";
-      cache-pause = false;
-      keep-open = "yes";
-    };
-    profiles = {
-      fast = {
-        vo = "dmabuf-wayland";
-        hwdec = "vaapi";
-        vulkan-device = "AMD Radeon 780M (RADV GFX1103_R1)";
-        deband = false;
-      };
-      slow = {
-        vo = "gpu-next";
-        hwdec = "vaapi";
-        vulkan-device = "AMD Radeon 780M (RADV GFX1103_R1)";
-        # vulkan-device = "NVIDIA GeForce RTX 4060 Laptop GPU";
-        scale = "ewa_lanczos4sharpest";
-        dscale = "ewa_lanczos4sharpest";
-        video-sync = "display-resample";
-        interpolation = true;
-        tscale = "oversample";
-        deband = true;
-        target-colorspace-hint = true;
-        af = "rubberband";
+  programs = {
+    aria2 = {
+      enable = true;
+      settings = {
+        file-allocation = "falloc";
+        max-connection-per-server = 16;
+        conditional-get = true;
+        enable-mmap = true;
       };
     };
-    scripts = [ power-profile-script ];
+    yt-dlp = {
+      enable = true;
+      settings = {
+        embed-metadata = true;
+        embed-thumbnail = true;
+        embed-subs = true;
+        sub-langs = "all";
+        downloader = "aria2c";
+      };
+    };
+    mpv = {
+      enable = true;
+      config = {
+        gpu-api = "vulkan";
+        vulkan-queue-count = 8;
+        swapchain-depth = 8;
+        hls-bitrate = "max";
+        cache = "yes";
+        cache-pause = false;
+        keep-open = "yes";
+        demuxer-max-bytes = "32GiB";
+        ad-lavc-threads = 0;
+      };
+      profiles = {
+        fast = {
+          vo = "dmabuf-wayland";
+          hwdec = "vaapi";
+          vulkan-device = "AMD Radeon 780M (RADV GFX1103_R1)";
+          deband = false;
+        };
+        slow = {
+          vo = "gpu-next";
+          vulkan-device = "NVIDIA GeForce RTX 4060 Laptop GPU";
+          hwdec = "nvdec";
+          scale = "ewa_lanczos4sharpest";
+          dscale = "ewa_lanczos4sharpest";
+          tscale = "oversample";
+          video-sync = "display-resample";
+          interpolation = true;
+          dither = "error-diffusion";
+          error-diffusion = "floyd-steinberg";
+          temporal-dither = true;
+          deband = true;
+          target-colorspace-hint = true;
+          af = "rubberband";
+        };
+      };
+      scripts = [ power-profile-script ];
+    };
   };
 }

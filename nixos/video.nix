@@ -9,17 +9,13 @@
   hardware = {
     graphics = {
       enable = true;
+      extraPackages = [ pkgs.mesa.drivers ];
     };
     
     nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.beta;
-
       open = true;
-
       dynamicBoost.enable = true;
-      modesetting.enable = true;
-
-      nvidiaSettings = true;
 
       powerManagement = {
         enable = true;

@@ -20,7 +20,7 @@
     kernel.sysctl = {
       "kernel.nmi_watchdog" = 0;
     };
-    kernelParams = [ "pcie_aspm.policy=powersupersave" ];
+    kernelParams = [ "mem_sleep_default=deep" "pcie_aspm.policy=powersupersave" ];
   };
 
   powerManagement.enable = true;

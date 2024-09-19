@@ -6,6 +6,7 @@
     jetbrains-mono
     font-awesome
     noto-fonts
+    noto-fonts-cjk-sans
     noto-fonts-emoji
 
     swayidle
@@ -39,7 +40,7 @@
     monospace = [ "Jetbrains Mono" ];
     emoji = [ "Noto Emoji " "Font Awesome" ];
   };
-  
+
   services = {
     wlsunset = {
       enable = true;
@@ -67,7 +68,7 @@
     mako = {
       enable = true;
       backgroundColor = "#282a36";
-      textColor = "#44475a";
+      textColor = "#f8f8f2";
       borderColor = "#282a36";
       defaultTimeout = 5000;  # measured in ms
 
@@ -95,21 +96,21 @@
       };
     };
 
-    foot= {
+    alacritty = {
       enable = true;
       settings = {
-        main = {
-          include = "${config.xdg.configHome}/home-manager/foot/dracula.ini";
-          font = "Jetbrains Mono";
-          dpi-aware = "yes";
-          shell = "${pkgs.fish}/bin/fish";
+        import = [
+          "${config.xdg.configHome}/home-manager/alacritty/dracula.toml"
+        ];
+        shell = "${pkgs.fish}/bin/fish";
+        window = {
+          dynamic_padding = true;
+          opacity = 0.95;
         };
-        colors = {
-          alpha = 0.95;
-        };
-        mouse = {
-          hide-when-typing = "yes";
-        };
+        font.size = 9;
+        bell.animation = "EaseOut";
+        cursor.style.blinking = "On";
+        mouse.hide_when_typing = true;
       };
     };
 
@@ -118,7 +119,7 @@
       settings = {
         main = {
           font = "Jetbrains Mono";
-          terminal = "${pkgs.foot}/bin/foot";
+          terminal = "${pkgs.alacritty}/bin/alacritty";
         };
         colors = {
           background = "282a36dd";
@@ -148,11 +149,11 @@
         modules-right = [
           "network"
           "temperature"
-          "custom/weather"
           "wireplumber"
           "backlight"
           "tray"
           "idle_inhibitor"
+          "custom/suspend"
         ];
         "sway/window" = {
           format = "{}";
@@ -186,7 +187,6 @@
         };
         cpu = {
           format = "{usage}% ";
-          tooltip = false;
           states = {
             critical = 90;
           };
@@ -238,10 +238,9 @@
           };
           on-click = "wpctl set-mute @DEFAULT_SINK@ toggle";
         };
-        "custom/power" = {
-          format = "";
-          on-click = "loginctl suspend";
-          tooltip = false;
+        "custom/suspend" = {
+          format = "";
+          on-click = "systemctl suspend";
         };
       }];
     };
@@ -276,6 +275,9 @@
       output = {
         "*" = {
           bg = "${config.xdg.configHome}/home-manager/sway/nixos.png fill";
+        };
+        "Samsung Electric Company LC27T55 HCPNB03531" = {
+          mode = "1920x1080@74.973Hz";
         };
       };
       window = {
@@ -313,7 +315,7 @@
         };
       };
       modifier = "Mod4";
-      terminal = "foot";
+      terminal = "alacritty";
       menu = "fuzzel";
       input = {
         "type:touchpad" = {

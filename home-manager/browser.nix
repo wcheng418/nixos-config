@@ -7,7 +7,7 @@
     commandLineArgs = [
       "--ozone-platform-hint=auto"
       "--enable-native-gpu-memory-buffers"
-      "--enable-features=RawDraw"
+      "--enable-features=RawDraw,VaapiVideoDecoder"
     ];
   };
 }

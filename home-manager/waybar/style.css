@@ -24,7 +24,7 @@ window#waybar.hidden {
 #backlight,
 #battery,
 #network,
-#custom-power,
+#custom-suspend,
 #custom-weather,
 #temperature,
 #window,
@@ -82,7 +82,7 @@ window#waybar.hidden {
   color: #bd93f9;
 }
 
-#custom-weather {
+#custom-suspend {
   color: #8be9fd;
 }
 

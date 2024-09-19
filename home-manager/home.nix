@@ -55,6 +55,7 @@
     # pkgs.hello
 
     dconf
+    mosh
     nvtopPackages.full
 
     # # It is sometimes useful to fine-tune packages, for example, by applying

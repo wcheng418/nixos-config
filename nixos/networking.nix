@@ -37,7 +37,16 @@
     };
   };
 
-  services.resolved.enable = true;
+  networking.nameservers = [ "1.1.1.1#one.one.one.one" "9.9.9.9#dns.quad9.net" ];
+  services = {
+    resolved = {
+      enable = true;
+      llmnr = "resolve";
+      dnssec = "allow-downgrade";
+      dnsovertls = "opportunistic";
+    };
+    avahi.enable = true;
+  };
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;

@@ -7,6 +7,7 @@
     typescript-language-server
     rust-analyzer
     pyright
+    gopls
   ];
 
   programs = {
@@ -35,6 +36,12 @@
             display-messages = true;
             display-inlay-hints = true;
           };
+        };
+      };
+      themes = {
+        dracula = {
+          inherits = "dracula";
+          "ui.background" = {};
         };
       };
       languages = {
