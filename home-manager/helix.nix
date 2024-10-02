@@ -2,12 +2,13 @@
 
 {
   home.packages = with pkgs; [
-    nil
+    nixd
     vscode-langservers-extracted
     typescript-language-server
     rust-analyzer
     pyright
     gopls
+    markdown-oxide
   ];
 
   programs = {
@@ -45,11 +46,21 @@
         };
       };
       languages = {
-        language = [{
+        language = [
+        {
+          name = "nix";
+          language-servers = [ "nixd" ];
+        }
+        {
           name = "python";
           language-servers = [ "pyright" "ruff" ];
         }];
         language-server = {
+          nixd = {
+            command = "${pkgs.nixd}/bin/nixd";
+            args = [];
+          };
+
           ruff = {
             command = "${pkgs.ruff}/bin/ruff";
             args = [ "server" ];

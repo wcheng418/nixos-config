@@ -8,6 +8,7 @@
   imports =
     [
       ./audio.nix
+      # ./games.nix
       ./hardware-configuration.nix
       ./locale.nix
       ./memory.nix
@@ -27,18 +28,24 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    config.cudaSupport = true;
+    hostPlatform = builtins.currentSystem;
+  };
+
+  programs.nix-ld.enable = true;
 
   environment.systemPackages = with pkgs; [
     helix
   ];
 
   nix = {
-    gc.automatic = true;
     optimise.automatic = true;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    settings = {
+      max-jobs = "auto";
+      cores = 0;
+    };
   };
 
   

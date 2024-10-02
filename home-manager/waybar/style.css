@@ -25,7 +25,7 @@ window#waybar.hidden {
 #battery,
 #network,
 #custom-suspend,
-#custom-weather,
+#mpris,
 #temperature,
 #window,
 #cpu,
@@ -43,10 +43,6 @@ window#waybar.hidden {
   padding: 0 5px;
   min-width: 20px;
   color: #6272a4;
-}
-
-#custom-network {
-  color: #8be9fd;
 }
 
 #workspaces button:hover {
@@ -83,6 +79,10 @@ window#waybar.hidden {
 }
 
 #custom-suspend {
+  color: #8be9fd;
+}
+
+#mpris {
   color: #8be9fd;
 }
 

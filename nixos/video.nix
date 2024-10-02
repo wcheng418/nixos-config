@@ -4,6 +4,9 @@
     vulkan-loader
   ];
 
+  nixpkgs.config.cudaCapabilities = [ "8.9" ];
+
+
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware = {

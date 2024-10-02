@@ -1,6 +1,7 @@
 { ... }:
 
 {
+  services.fstrim.enable = true;
 
   fileSystems."/tmp" = {
     device = "tmpfs";

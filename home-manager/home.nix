@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-
   imports = [
     ./audio.nix
     ./browser.nix
     ./helix.nix
+    ./personal.nix
     ./security.nix
     ./shell.nix
     ./sway.nix
@@ -19,6 +19,7 @@
   home.file.".config/nixpkgs/config.nix".text = ''
     {
       allowUnfree = true;
+      cudaSupport = true;
     }
   '';
 
@@ -34,6 +35,14 @@
         proc_filter_kernel = true;
         proc_aggregate = true;
       };
+    };
+
+    rtorrent = {
+      enable = true;
+      extraConfig = ''
+        session = ${config.xdg.configHome}/rtorrent;
+        directory = ${config.home.homeDirectory}/Downloads;        
+      '';
     };
   };
 
@@ -57,6 +66,12 @@
     dconf
     mosh
     nvtopPackages.full
+    rtorrent
+    ffmpeg
+    sshfs
+    jq
+    glow
+    iaito
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -85,13 +100,6 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-
-    ".local/bin/start-sway" = {
-      text = ''
-        #!/bin/bash
-      '';
-      executable = true;
-    };
   };
 
   # Home Manager can also manage your environment variables through

@@ -77,12 +77,13 @@ in
           tscale = "oversample";
           video-sync = "display-resample";
           interpolation = true;
-          dither = "error-diffusion";
-          error-diffusion = "floyd-steinberg";
+          # dither = "error-diffusion";
+          # error-diffusion = "floyd-steinberg";
           temporal-dither = true;
           deband = true;
           target-colorspace-hint = true;
           af = "rubberband";
+          hr-seek = true;
         };
       };
       scripts = [ power-profile-script ];

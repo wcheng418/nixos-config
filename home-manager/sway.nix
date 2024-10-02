@@ -3,8 +3,8 @@
 {
   home.packages = with pkgs; [
     # Fonts
-    jetbrains-mono
     font-awesome
+    jetbrains-mono
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
@@ -52,7 +52,7 @@
       timeouts = [
         {
           timeout = 300;
-          command = "${pkgs.swaylock}/bin/swaylock -fF";
+          command = "${pkgs.swaylock}/bin/swaylock -f";
         }
         {
           timeout = 500;
@@ -92,7 +92,9 @@
         image = "${config.xdg.configHome}/home-manager/sway/nixos.png";
         scaling = "fill";
         ignore-empty-password = true;
+        indicator-caps-lock = true;
         show-failed-attempts = true;
+        ring-color = "#bd93f9";
       };
     };
 
@@ -145,7 +147,7 @@
           "memory"
           "sway/window"
         ];
-        modules-center = [ "clock" ];
+        modules-center = [ "clock" "mpris" ];
         modules-right = [
           "network"
           "temperature"
@@ -153,6 +155,7 @@
           "backlight"
           "tray"
           "idle_inhibitor"
+          "custom/lock"
           "custom/suspend"
         ];
         "sway/window" = {
@@ -182,7 +185,7 @@
         backlight = {
           format = "{icon} {percent}%";
           format-icons = {
-            default = [ "" "" "" ];
+            default = [ "" "" "" ];
           };
         };
         cpu = {
@@ -238,9 +241,24 @@
           };
           on-click = "wpctl set-mute @DEFAULT_SINK@ toggle";
         };
+        mpris = {
+          format = "{player_icon} {dynamic}";
+          format-paused = "{status_icon} <i>{dynamic}</i>";
+          player-icons = {
+        		default = "▶";
+            brave = "";
+        		mpv = "";
+        	};
+          status-icons = {
+            playing = "";
+            paused = "";
+            stopped = "";
+          };
+          interval = 1;
+        };
         "custom/suspend" = {
           format = "";
-          on-click = "systemctl suspend";
+          on-click = "${pkgs.systemd}/bin/systemctl suspend";
         };
       }];
     };
@@ -261,6 +279,8 @@
       package = pkgs.adwaita-icon-theme;
     };
   };
+
+  qt.platformTheme.name = "dracula";
 
   wayland.windowManager.sway = {
     enable = true;
@@ -319,7 +339,7 @@
       menu = "fuzzel";
       input = {
         "type:touchpad" = {
-          accel_profile = "adaptive";
+          accel_profile = "flat";
           dwt = "disabled";
           tap = "enabled";
           natural_scroll = "enabled";

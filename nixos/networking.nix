@@ -45,7 +45,10 @@
       dnssec = "allow-downgrade";
       dnsovertls = "opportunistic";
     };
-    avahi.enable = true;
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+    };
   };
 
   hardware.bluetooth.enable = true;
