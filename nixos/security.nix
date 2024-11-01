@@ -1,9 +1,7 @@
 { pkgs, ... }:
 
 {
-
   environment.systemPackages = with pkgs; [
-    mullvad
     sbctl
     cryptsetup
   ];
@@ -27,8 +25,6 @@
   };
   services = {
     dbus.packages = [ pkgs.gcr ];
-    mullvad-vpn = {
-      enable = true;
-    };
   };
+  security.sudo.execWheelOnly = true;
 }

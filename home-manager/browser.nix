@@ -14,7 +14,8 @@
     zathura = {
       enable = true;
       options = {
-        "selection-keyboard" = "clipboard";
+        "sandbox" = "strict";
+        "selection-clipboard" = "clipboard";
       };
       mappings = {
         "<C-i>" = "recolor";

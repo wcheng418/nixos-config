@@ -10,6 +10,7 @@
     ./shell.nix
     ./sway.nix
     ./video.nix
+    ./virt.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -34,6 +35,7 @@
         proc_tree = true;
         proc_filter_kernel = true;
         proc_aggregate = true;
+        log_level = "off";
       };
     };
 
@@ -70,8 +72,14 @@
     ffmpeg
     sshfs
     jq
+    fq
+    radare2
     glow
-    iaito
+    llama-cpp
+    signal-desktop
+    openai-whisper-cpp
+    # openai-whisper-cpp
+    parallel
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

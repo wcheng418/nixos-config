@@ -41,7 +41,6 @@
   services = {
     resolved = {
       enable = true;
-      llmnr = "resolve";
       dnssec = "allow-downgrade";
       dnsovertls = "opportunistic";
     };

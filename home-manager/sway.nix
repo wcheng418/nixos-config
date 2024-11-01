@@ -5,6 +5,7 @@
     # Fonts
     font-awesome
     jetbrains-mono
+        
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
@@ -98,30 +99,50 @@
       };
     };
 
-    alacritty = {
+
+    foot= {
       enable = true;
+      # server.enable = true;
       settings = {
-        import = [
-          "${config.xdg.configHome}/home-manager/alacritty/dracula.toml"
-        ];
-        shell = "${pkgs.fish}/bin/fish";
-        window = {
-          dynamic_padding = true;
-          opacity = 0.95;
+        main = {
+          include = "${config.xdg.configHome}/home-manager/foot/dracula.ini";
+          font = "Jetbrains Mono:size=9";
+
+          shell = "${pkgs.fish}/bin/fish";
         };
-        font.size = 9;
-        bell.animation = "EaseOut";
-        cursor.style.blinking = "On";
-        mouse.hide_when_typing = true;
+        colors = {
+          alpha = 0.95;
+        };
+        mouse = {
+          hide-when-typing = "yes";
+        };
       };
     };
+
+    # alacritty = {
+    #   enable = true;
+    #   settings = {
+    #     import = [
+    #       "${config.xdg.configHome}/home-manager/alacritty/dracula.toml"
+    #     ];
+    #     shell = "${pkgs.fish}/bin/fish";
+    #     window = {
+    #       dynamic_padding = true;
+    #       opacity = 0.95;
+    #     };
+    #     font.size = 9;
+    #     bell.animation = "EaseOut";
+    #     cursor.style.blinking = "On";
+    #     mouse.hide_when_typing = true;
+    #   };
+    # };
 
     fuzzel = {
       enable = true;
       settings = {
         main = {
-          font = "Jetbrains Mono";
-          terminal = "${pkgs.alacritty}/bin/alacritty";
+          font = "Jetbrains Mono:size=13";
+          terminal = "${pkgs.foot}/bin/foot";
         };
         colors = {
           background = "282a36dd";
@@ -242,6 +263,7 @@
           on-click = "wpctl set-mute @DEFAULT_SINK@ toggle";
         };
         mpris = {
+          dynamic-len = 13;
           format = "{player_icon} {dynamic}";
           format-paused = "{status_icon} <i>{dynamic}</i>";
           player-icons = {
@@ -335,12 +357,12 @@
         };
       };
       modifier = "Mod4";
-      terminal = "alacritty";
+      terminal = "foot";
       menu = "fuzzel";
       input = {
         "type:touchpad" = {
           accel_profile = "flat";
-          dwt = "disabled";
+          dwt = "enabled";
           tap = "enabled";
           natural_scroll = "enabled";
         };

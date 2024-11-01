@@ -2,13 +2,19 @@
 
 {
   home.packages = with pkgs; [
+    bash-language-server
     nixd
+    clang-tools
     vscode-langservers-extracted
     typescript-language-server
     rust-analyzer
     pyright
     gopls
+    typst-lsp
+    typst-fmt
+    marksman
     markdown-oxide
+    zls
   ];
 
   programs = {

@@ -4,10 +4,9 @@
     vulkan-loader
   ];
 
-  nixpkgs.config.cudaCapabilities = [ "8.9" ];
-
-
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  boot.kernelModules = [ "nvidia-uvm" ]; # current nvidia-uvm is not loaded at boot, eventually this will be fixed: https://github.com/NixOS/nixpkgs/issues/334180
 
   hardware = {
     graphics = {

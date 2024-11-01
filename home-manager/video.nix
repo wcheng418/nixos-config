@@ -28,6 +28,10 @@ let power-profile-script = pkgs.stdenv.mkDerivation {
   };
 in
 {
+  home.packages = with pkgs; [
+    imv
+    mpvScripts.mpris
+  ];
   programs = {
     aria2 = {
       enable = true;
@@ -42,9 +46,6 @@ in
       enable = true;
       settings = {
         embed-metadata = true;
-        embed-thumbnail = true;
-        embed-subs = true;
-        sub-langs = "all";
         downloader = "aria2c";
       };
     };
@@ -60,6 +61,16 @@ in
         keep-open = "yes";
         demuxer-max-bytes = "32GiB";
         ad-lavc-threads = 0;
+      };
+      bindings = {
+        "Alt+=" = "add video-zoom 0.1";
+
+        "Alt+-" = "add video-zoom -0.1";
+
+        "Alt+h" = "add video-pan-x -0.05";
+        "Alt+l" = "add video-pan-x 0.05";
+        "Alt+j" = "add video-pan-y 0.05";
+        "Alt+k" = "add video-pan-y -0.05";
       };
       profiles = {
         fast = {
