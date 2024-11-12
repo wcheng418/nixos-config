@@ -102,7 +102,7 @@
 
     foot= {
       enable = true;
-      # server.enable = true;
+      server.enable = false;
       settings = {
         main = {
           include = "${config.xdg.configHome}/home-manager/foot/dracula.ini";
@@ -406,6 +406,5 @@
       bindswitch --reload --locked lid:on output $laptop disable
       bindswitch --reload --locked lid:off output $laptop enable
     '';
-
   };
 }

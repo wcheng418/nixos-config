@@ -8,12 +8,13 @@
   imports =
     [
       ./audio.nix
-      # ./games.nix
+      ./games.nix
       ./hardware-configuration.nix
       ./locale.nix
       ./memory.nix
       ./networking.nix
       ./power.nix
+      ./printing.nix
       ./security.nix
       ./user.nix
       ./video.nix
@@ -29,10 +30,14 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   nixpkgs = {
-    config.allowUnfree = true;
-    config.cudaSupport = true;
-    hostPlatform = builtins.currentSystem;
+    config = {
+      allowUnfree = true;
+      config.cudaSupport = true;
+    };
+    hostPlatform.system = builtins.currentSystem;
   };
+
+
 
   programs.nix-ld.enable = true;
 

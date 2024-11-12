@@ -7,8 +7,6 @@
       package = pkgs.brave;
       commandLineArgs = [
         "--ozone-platform-hint=auto"
-        "--enable-native-gpu-memory-buffers"
-        "--enable-features=VaapiVideoDecoder"
       ];
     };
     zathura = {

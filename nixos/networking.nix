@@ -5,7 +5,15 @@
     useNetworkd = true;
     networkmanager.enable = false;
     wireless.iwd.enable = true;
-    hostName = "zephyrus";
+    hostName = "kassandra";
+
+    wireguard.enable = true;
+    wg-quick.interfaces = {
+      warp = {
+        configFile = "/etc/wireguard/warp.conf";
+        autostart = false;
+      };
+    };
   };
 
   systemd.network = {
@@ -37,18 +45,7 @@
     };
   };
 
-  networking.nameservers = [ "1.1.1.1#one.one.one.one" "9.9.9.9#dns.quad9.net" ];
-  services = {
-    resolved = {
-      enable = true;
-      dnssec = "allow-downgrade";
-      dnsovertls = "opportunistic";
-    };
-    avahi = {
-      enable = true;
-      nssmdns4 = true;
-    };
-  };
+  services.resolved.enable = true;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
