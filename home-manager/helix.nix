@@ -7,13 +7,17 @@
     clang-tools
     vscode-langservers-extracted
     typescript-language-server
+    haskell-language-server
     rust-analyzer
+    ocamlPackages.ocaml-lsp
+    ocamlPackages.ocamlformat
     pyright
     gopls
-    typst-lsp
+    tinymist
     typst-fmt
     marksman
     markdown-oxide
+    yaml-language-server
     zls
   ];
 

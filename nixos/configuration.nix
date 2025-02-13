@@ -20,14 +20,17 @@
       ./video.nix
     ];
 
-  boot.loader.systemd-boot = {
-    enable = true;
-    configurationLimit = 3;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 3;
+    };
   };
 
-  boot.loader.efi.canTouchEfiVariables = true;
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  hardware.keyboard.qmk.enable = true;
 
   nixpkgs = {
     config = {
@@ -37,23 +40,16 @@
     hostPlatform.system = builtins.currentSystem;
   };
 
-
-
   programs.nix-ld.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    helix
-  ];
-
   nix = {
-    optimise.automatic = true;
     settings = {
-      max-jobs = "auto";
-      cores = 0;
+      sandbox = "relaxed";
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+      flake-registry = "";
     };
   };
-
-  
 
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
 

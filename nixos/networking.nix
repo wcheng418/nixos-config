@@ -4,7 +4,14 @@
   networking = {
     useNetworkd = true;
     networkmanager.enable = false;
-    wireless.iwd.enable = true;
+    wireless.iwd = {
+      enable = true;
+      settings = {
+        Rank = {
+          BandModifier5Ghz = 2.0;
+        };
+      };
+    };
     hostName = "kassandra";
 
     wireguard.enable = true;
@@ -45,7 +52,11 @@
     };
   };
 
-  services.resolved.enable = true;
+
+  services.resolved = {
+    enable = true;
+    domains = [ "~." ];
+  };
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;

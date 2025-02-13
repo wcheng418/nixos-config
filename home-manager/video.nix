@@ -22,10 +22,8 @@ let power-profile-script = pkgs.stdenv.mkDerivation {
 
           if ac_status == 1 and usbc_status == 0 then
               mp.command_native({"apply-profile", "slow"})
-              mp.msg.info("Applied 'slow' profile - running on main AC power")
           else
               mp.command_native({"apply-profile", "fast"})
-              mp.msg.info("Applied 'fast' profile - running on battery or USB-C power")
           end
       end
 
@@ -53,7 +51,7 @@ let power-profile-script = pkgs.stdenv.mkDerivation {
 in
 {
   home.packages = with pkgs; [
-    imv
+    swayimg
     mpvScripts.mpris
   ];
   programs = {
@@ -71,14 +69,15 @@ in
       settings = {
         embed-metadata = true;
         downloader = "aria2c";
+        # downloader = "curl_cffi";
+        # downloader-args = "curl_cffi:{'impersonate':'chrome110'}";
       };
     };
     mpv = {
       enable = true;
       config = {
+        hwdec = "auto";
         gpu-api = "vulkan";
-        vulkan-queue-count = 8;
-        swapchain-depth = 8;
         hls-bitrate = "max";
         cache = "yes";
         cache-pause = false;
@@ -93,23 +92,26 @@ in
         "Alt+l" = "add video-pan-x 0.05";
         "Alt+j" = "add video-pan-y 0.05";
         "Alt+k" = "add video-pan-y -0.05";
+
+        "~" = "ignore";
+        "ESC" = "script-binding console/enable; script-binding console/disable";
       };
       profiles = {
         fast = {
           vo = "dmabuf-wayland";
-          hwdec = "vaapi";
           vulkan-device = "AMD Radeon 780M (RADV GFX1103_R1)";
           deband = false;
         };
         slow = {
           vo = "gpu-next";
           vulkan-device = "NVIDIA GeForce RTX 4060 Laptop GPU";
-          hwdec = "nvdec";
           scale = "ewa_lanczos4sharpest";
           dscale = "ewa_lanczos4sharpest";
           tscale = "oversample";
           video-sync = "display-resample";
           interpolation = true;
+          # dither = "error-diffusion";
+          # error-diffusion="floyd-steinberg";
           temporal-dither = true;
           deband = true;
           target-colorspace-hint = true;

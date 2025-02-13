@@ -2,20 +2,15 @@
 
 {
   environment.systemPackages = with pkgs; [
-    sbctl
-    cryptsetup
+    fscrypt-experimental
   ];
   networking.firewall.enable = true;
-  system.activationScripts.secureboot_permissions = {
-    text = ''
-      chmod 600 /etc/secureboot.img
-      chown root:root /etc/secureboot.img
-    '';
-  };
   security = {
     polkit.enable = true;
     pam = {
-      services.swaylock = {};
+      services = {
+        swaylock = {};
+      };
       enableFscrypt = true;
     };
   };

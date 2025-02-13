@@ -6,8 +6,8 @@
 
   hardware = {
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
       open = true;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
       dynamicBoost.enable = true;
 
       powerManagement = {

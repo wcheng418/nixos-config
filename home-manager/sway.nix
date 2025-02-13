@@ -4,24 +4,22 @@
   home.packages = with pkgs; [
     # Fonts
     font-awesome
-    jetbrains-mono
-        
-    noto-fonts
-    noto-fonts-cjk-sans
     noto-fonts-emoji
 
+    helvetica-neue-lt-std
+
+    (iosevka-bin.override { variant = ""; })
+    (iosevka-bin.override { variant = "Aile"; })
+    (iosevka-bin.override { variant = "Etoile"; })
+    (iosevka-bin.override { variant = "SGr-IosevkaTerm"; })
+
+    # Sway packages
     swayidle
-
     swaybg
-    
     playerctl
-
     brightnessctl
-
     wl-clipboard
-
     mako # notification daemon
-
     wlsunset
 
     # Screen capture
@@ -36,10 +34,10 @@
   fonts.fontconfig.enable = true;
   
   fonts.fontconfig.defaultFonts = {
-    sansSerif = [ "Noto Sans" ];
-    serif = [ "Noto Serif" ];
-    monospace = [ "Jetbrains Mono" ];
-    emoji = [ "Noto Emoji " "Font Awesome" ];
+    sansSerif = [ "IosevkaAile" ];
+    serif = [ "IosevkaEtoile" ];
+    monospace = [ "Iosevka" ];
+    emoji = [ "Noto Emoji" "Font Awesome" ];
   };
 
   services = {
@@ -99,14 +97,13 @@
       };
     };
 
-
-    foot= {
-      enable = true;
+    foot = {
+      enable = false;
       server.enable = false;
       settings = {
         main = {
           include = "${config.xdg.configHome}/home-manager/foot/dracula.ini";
-          font = "Jetbrains Mono:size=9";
+          font = "monospace:size=9";
 
           shell = "${pkgs.fish}/bin/fish";
         };
@@ -119,30 +116,39 @@
       };
     };
 
-    # alacritty = {
-    #   enable = true;
-    #   settings = {
-    #     import = [
-    #       "${config.xdg.configHome}/home-manager/alacritty/dracula.toml"
-    #     ];
-    #     shell = "${pkgs.fish}/bin/fish";
-    #     window = {
-    #       dynamic_padding = true;
-    #       opacity = 0.95;
-    #     };
-    #     font.size = 9;
-    #     bell.animation = "EaseOut";
-    #     cursor.style.blinking = "On";
-    #     mouse.hide_when_typing = true;
-    #   };
-    # };
+    alacritty = {
+      enable = true;
+      settings = {
+        general.import = [
+          "${config.xdg.configHome}/home-manager/alacritty/dracula.toml"
+        ];
+        keyboard.bindings = [
+          {
+            key = "N";
+            mods = "Control|Shift";
+            action = "CreateNewWindow";
+          }
+        ];
+        terminal.shell = "${pkgs.fish}/bin/fish";
+        window = {
+          opacity = 0.95;
+        };
+        font = {
+          size = 10;
+          normal.family = "IosevkaTerm";
+        };
+        bell.animation = "EaseOut";
+        cursor.style.blinking = "On";
+        mouse.hide_when_typing = true;
+      };
+    };
 
     fuzzel = {
       enable = true;
       settings = {
         main = {
-          font = "Jetbrains Mono:size=13";
-          terminal = "${pkgs.foot}/bin/foot";
+          font = "monospace:size=13";
+          terminal = "${pkgs.alacritty}/bin/alacritty msg create-window -e";
         };
         colors = {
           background = "282a36dd";
@@ -168,7 +174,7 @@
           "memory"
           "sway/window"
         ];
-        modules-center = [ "clock" "mpris" ];
+        modules-center = [ "clock" ];
         modules-right = [
           "network"
           "temperature"
@@ -262,22 +268,6 @@
           };
           on-click = "wpctl set-mute @DEFAULT_SINK@ toggle";
         };
-        mpris = {
-          dynamic-len = 13;
-          format = "{player_icon} {dynamic}";
-          format-paused = "{status_icon} <i>{dynamic}</i>";
-          player-icons = {
-        		default = "▶";
-            brave = "";
-        		mpv = "";
-        	};
-          status-icons = {
-            playing = "";
-            paused = "";
-            stopped = "";
-          };
-          interval = 1;
-        };
         "custom/suspend" = {
           format = "";
           on-click = "${pkgs.systemd}/bin/systemctl suspend";
@@ -302,12 +292,18 @@
     };
   };
 
-  qt.platformTheme.name = "dracula";
+  qt = {
+    style.name = "dracula";
+  };
 
   wayland.windowManager.sway = {
     enable = true;
     checkConfig = false; # Does not work (for now), due to bug when opening background image
     config = {
+      startup = [
+        { command = "${pkgs.alacritty}/bin/alacritty --daemon"; }
+      ];
+    
       gaps.inner = 8;
       seat = {
         "*" = {
@@ -320,6 +316,9 @@
         };
         "Samsung Electric Company LC27T55 HCPNB03531" = {
           mode = "1920x1080@74.973Hz";
+        };
+        "Samsung Electric Company S34J55x H4LNC10122" = {
+          mode = "3440x1440@75Hz";
         };
       };
       window = {
@@ -357,12 +356,12 @@
         };
       };
       modifier = "Mod4";
-      terminal = "foot";
+      terminal = "${pkgs.alacritty}/bin/alacritty msg create-window";
       menu = "fuzzel";
       input = {
         "type:touchpad" = {
           accel_profile = "flat";
-          dwt = "enabled";
+          dwt = "disabled";
           tap = "enabled";
           natural_scroll = "enabled";
         };

@@ -2,15 +2,20 @@
 
 {
   home.packages = with pkgs; [
-    pass
     passExtensions.pass-otp
+    (pass.withExtensions (ext: with ext; [ pass-otp ]))
+    xorg.xauth
   ];
 
   programs = {
     ssh = {
       enable = true;
+      # matchBlocks."*" = {
+      #   forwardX11 = true;
+      # };
       addKeysToAgent = "yes";
       controlMaster = "auto";
+      serverAliveInterval = 3;
     };
 
     git = {
@@ -29,5 +34,6 @@
       enable = true;
       pinentryPackage = pkgs.pinentry-tty;
     };
+    gnome-keyring.enable = true;
   };
 }
