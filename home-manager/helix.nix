@@ -1,35 +1,31 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    bash-language-server
-    nixd
-    clang-tools
-    vscode-langservers-extracted
-    typescript-language-server
-    haskell-language-server
-    rust-analyzer
-    ocamlPackages.ocaml-lsp
-    ocamlPackages.ocamlformat
-    pyright
-    gopls
-    tinymist
-    typst-fmt
-    marksman
-    markdown-oxide
-    yaml-language-server
-    zls
-  ];
-
   programs = {
-    ruff = {
-      enable = true;
-      settings = {};
-    };
-
     helix = {
-      defaultEditor = true;
       enable = true;
+      defaultEditor = true;
+
+      extraPackages = with pkgs; [
+        bash-language-server
+        nixd
+        clang-tools
+        superhtml
+        vscode-langservers-extracted
+        typescript-language-server
+        rust-analyzer
+        pyright
+        ruff
+        svelte-language-server
+        gopls
+        tinymist
+        typst-fmt
+        marksman
+        markdown-oxide
+        yaml-language-server
+        zls
+      ];
+      
       settings = {
         theme = "dracula";
         editor = {
@@ -70,7 +66,6 @@
             command = "${pkgs.nixd}/bin/nixd";
             args = [];
           };
-
           ruff = {
             command = "${pkgs.ruff}/bin/ruff";
             args = [ "server" ];
