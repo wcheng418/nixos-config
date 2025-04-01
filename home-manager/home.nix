@@ -5,7 +5,6 @@
     ./browser.nix
     ./extra.nix
     ./helix.nix
-    ./personal.nix
     ./security.nix
     ./shell.nix
     ./sway.nix
