@@ -32,30 +32,60 @@
     ffmpeg
     sshfs
     jq
+    fx
+    nix-index
+    nvtopPackages.full
 
     radare2
-    # binwalk
+    binwalk
     nmap
+    whois
 
     glow
     signal-desktop
     parallel
     python3
-    (pkgs.openai-whisper-cpp.overrideAttrs (oldAttrs: {
-      __noChroot = true;
-    }))
-    # (pkgs.llama-cpp.overrideAttrs (oldAttrs: {
+    # (pkgs.openai-whisper-cpp.overrideAttrs (oldAttrs: {
     #   __noChroot = true;
+    #   env = {
+    #     NIX_ENFORCE_NO_NATIVE = "0";
+    #     GGML_CUDA_ENABLE_UNIFIED_MEMORY = "1";
+    #   } // (oldAttrs.env or {});
+
+    #   cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [
+    #     (lib.cmakeBool "BUILD_SHARED_LIBS" false)
+
+    #     (lib.cmakeBool "GGML_NATIVE" true)
+    #     (lib.cmakeBool "GGML_CUDA_FA_ALL_QUANTS" true)
+    #     (lib.cmakeBool "GGML_CUDA_F16" true)
+    #     (lib.cmakeBool "GGML_CUDA_GRAPHS" true)
+    #     (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" "native")
+    #   ];
     # }))
+    (pkgs.llama-cpp.overrideAttrs (oldAttrs: {
+      __noChroot = true;
+      env = {
+        NIX_ENFORCE_NO_NATIVE = "0";
+        GGML_CUDA_ENABLE_UNIFIED_MEMORY = "1";
+      } // (oldAttrs.env or {});
 
+      cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [
+        (lib.cmakeBool "GGML_NATIVE" true)
+        (lib.cmakeBool "GGML_CUDA_FA_ALL_QUANTS" true)
+        (lib.cmakeBool "GGML_CUDA_F16" true)
+        (lib.cmakeBool "GGML_CUDA_GRAPHS" true)
+        (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" "native")
+      ];
+    }))
 
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
+    # It is sometimes useful to fine-tune packages, for example, by applying
+    # overrides. You can do that directly here, just don't forget the
+    # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+    # fonts?
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
   ];
 
+  # In your home-manager configuration
   home.file = {
     ".config/nixpkgs/config.nix".text = ''
         {
