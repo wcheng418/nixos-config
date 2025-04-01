@@ -5,10 +5,11 @@
     # Fonts
     font-awesome
     noto-fonts-emoji
+    noto-fonts-cjk-sans
 
     helvetica-neue-lt-std
 
-    (iosevka-bin.override { variant = ""; })
+    iosevka
     (iosevka-bin.override { variant = "Aile"; })
     (iosevka-bin.override { variant = "Etoile"; })
     (iosevka-bin.override { variant = "SGr-IosevkaTerm"; })
@@ -84,6 +85,7 @@
     };
   };
 
+
   programs = {
     swaylock = {
       enable = true;
@@ -98,13 +100,11 @@
     };
 
     foot = {
-      enable = false;
-      server.enable = false;
+      enable = true;
       settings = {
         main = {
           include = "${config.xdg.configHome}/home-manager/foot/dracula.ini";
-          font = "monospace:size=9";
-
+          font = "IosevkaTerm:size=11";
           shell = "${pkgs.fish}/bin/fish";
         };
         colors = {
@@ -117,7 +117,7 @@
     };
 
     alacritty = {
-      enable = true;
+      enable = false;
       settings = {
         general.import = [
           "${config.xdg.configHome}/home-manager/alacritty/dracula.toml"
@@ -134,11 +134,9 @@
           opacity = 0.95;
         };
         font = {
-          size = 10;
+          size = 10.5;
           normal.family = "IosevkaTerm";
         };
-        bell.animation = "EaseOut";
-        cursor.style.blinking = "On";
         mouse.hide_when_typing = true;
       };
     };
@@ -147,8 +145,9 @@
       enable = true;
       settings = {
         main = {
-          font = "monospace:size=13";
-          terminal = "${pkgs.alacritty}/bin/alacritty msg create-window -e";
+          font = "monospace:size=13.5";
+          terminal = "${pkgs.foot}/bin/footclient";
+          # terminal = "${pkgs.alacritty}/bin/alacritty msg create-window -e";
         };
         colors = {
           background = "282a36dd";
@@ -191,13 +190,13 @@
           tooltip = false;
         };
         temperature = {
-          format = "{icon} {temperatureC}°C";
+          format = "<span font_desc='Font Awesome 6 Free'>{icon}</span> {temperatureC}°C";
           format-icons = {
             default = [ "" "" "" "" ""];
           };
         };
         idle_inhibitor = {
-          format = "{icon}";
+          format = "<span font_desc='Font Awesome 6 Free'>{icon}</span>";
           format-icons = {
             activated = "";
             deactivated = "";
@@ -210,7 +209,7 @@
           format = " {:%b %d %I:%M %p}";
         };
         backlight = {
-          format = "{icon} {percent}%";
+          format = "<span font_desc='Font Awesome 6 Free'>{icon}</span> {percent}%";
           format-icons = {
             default = [ "" "" "" ];
           };
@@ -222,7 +221,7 @@
           };
         };
         memory = {
-          format = "{percentage}% ";
+          format = "{percentage}% <span font_desc='Font Awesome 6 Free'></span>";
           states = {
             critical = 85;
           };
@@ -236,11 +235,11 @@
           states = {
             critical = 15;
           };
-          format = "{icon} {capacity}%";
-          format-charging = " {capacity}%";
-          format-plugged = " {capacity}%";
+          format = "{capacity}% <span font_desc='Font Awesome 6 Free'>{icon}</span>";
+          format-charging = "{capacity}%  ";
+          format-plugged = "{capacity}% ";
           tooltip = true;
-          format-full = "{icon} Full";
+          format-full = "Full <span font_desc='Font Awesome 6 Free'>{icon}</span>";
           format-icons = [ "" "" "" "" "" ];
           tooltip-format = " {time}";
         };
@@ -253,8 +252,8 @@
           tooltip-format = " {ifname}: {ipaddr}/{cidr}";
         };
         wireplumber = {
-          format = "{icon} {volume}%";
-          format-bluetooth = "{icon} {volume}%";
+          format = "<span font_desc='Font Awesome 6 Free'>{icon}</span> {volume}%";
+          format-bluetooth = "<span font_desc='Font Awesome 6 Free'>{icon}</span> {volume}%";
           format-bluetooth-muted = "  {volume}%";
           format-muted = "";
           format-icons = {
@@ -301,7 +300,9 @@
     checkConfig = false; # Does not work (for now), due to bug when opening background image
     config = {
       startup = [
-        { command = "${pkgs.alacritty}/bin/alacritty --daemon"; }
+        { command = "${pkgs.foot}/bin/foot --server"; }
+        # { command = "${pkgs.alacritty}/bin/alacritty --daemon"; }
+
       ];
     
       gaps.inner = 8;
@@ -313,6 +314,9 @@
       output = {
         "*" = {
           bg = "${config.xdg.configHome}/home-manager/sway/nixos.png fill";
+
+          adaptive_sync = "on";
+          # render_bit_depth = "10"; # Causes issues with screen sharing
         };
         "Samsung Electric Company LC27T55 HCPNB03531" = {
           mode = "1920x1080@74.973Hz";
@@ -356,8 +360,9 @@
         };
       };
       modifier = "Mod4";
-      terminal = "${pkgs.alacritty}/bin/alacritty msg create-window";
-      menu = "fuzzel";
+      # terminal = "${pkgs.alacritty}/bin/alacritty msg create-window";
+      terminal = "${pkgs.foot}/bin/footclient";
+      menu = "${pkgs.fuzzel}/bin/fuzzel";
       input = {
         "type:touchpad" = {
           accel_profile = "flat";
