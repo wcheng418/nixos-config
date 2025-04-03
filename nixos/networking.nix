@@ -6,21 +6,15 @@
     networkmanager.enable = false;
     wireless.iwd = {
       enable = true;
-      settings = {
-        Rank = {
-          BandModifier5Ghz = 2.0;
-        };
-      };
+      # settings = {
+      #   Rank = {
+      #     BandModifier5Ghz = 2.0;
+      #   };
+      # };
     };
-    hostName = "kassandra";
+    hostName = "greenfn";
 
     wireguard.enable = true;
-    wg-quick.interfaces = {
-      warp = {
-        configFile = "/etc/wireguard/warp.conf";
-        autostart = false;
-      };
-    };
   };
 
   systemd.network = {
@@ -55,9 +49,14 @@
 
   services.resolved = {
     enable = true;
-    domains = [ "~." ];
+    # domains = [ "~." ];
+
+    # dnsovertls = "opportunistic";
+    # dnssec = "allow-downgrade";
   };
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
 }

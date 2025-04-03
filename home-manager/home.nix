@@ -5,6 +5,7 @@
     ./browser.nix
     ./extra.nix
     ./helix.nix
+    ./personal.nix
     ./security.nix
     ./shell.nix
     ./sway.nix
@@ -34,6 +35,9 @@
     fx
     nix-index
     nvtopPackages.full
+    zip
+    unzip
+    google-drive-ocamlfuse
 
     radare2
     binwalk

@@ -1,5 +1,5 @@
 self: super: {
-  tensorflow = super.tensorflow.override {
-    cudaSupport = true;
-  };
+  # tensorflow = super.tensorflow.override {
+  #   cudaSupport = true;
+  # };
 }

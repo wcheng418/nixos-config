@@ -6,6 +6,12 @@
       enable = true;
       package = pkgs.brave;
     };
+
+    thunderbird = {
+      enable = true;
+      profiles = {};
+    };
+
     zathura = {
       enable = true;
       options = {

@@ -20,6 +20,7 @@
   };
   services = {
     dbus.packages = [ pkgs.gcr ];
+    cloudflare-warp.enable = false;
   };
   security.sudo.execWheelOnly = true;
 }

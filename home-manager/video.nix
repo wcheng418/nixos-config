@@ -52,7 +52,6 @@ in
 {
   home.packages = with pkgs; [
     swayimg
-    mpvScripts.mpris
   ];
   programs = {
     aria2 = {
@@ -69,13 +68,16 @@ in
       settings = {
         embed-metadata = true;
         downloader = "aria2c";
-        # downloader = "curl_cffi";
-        # downloader-args = "curl_cffi:{'impersonate':'chrome110'}";
       };
     };
     mpv = {
       enable = true;
       config = {
+        osc = "no";
+        osd-bar = "no";
+        border = "no";
+
+        vo = "gpu-next";
         hwdec = "auto";
         gpu-api = "vulkan";
         hls-bitrate = "max";
@@ -93,17 +95,15 @@ in
         "Alt+j" = "add video-pan-y 0.05";
         "Alt+k" = "add video-pan-y -0.05";
 
-        "~" = "ignore";
-        "ESC" = "script-binding console/enable; script-binding console/disable";
+        "Ctrl+f" = "script-binding subtitle_lines/list_subtitles";
+        "Ctrl+F" = "script-binding subtitle_lines/list_secondary_subtitles";
       };
       profiles = {
         fast = {
-          vo = "dmabuf-wayland";
-          vulkan-device = "AMD Radeon 780M (RADV GFX1103_R1)";
+          vulkan-device = "AMD Radeon 780M (RADV PHOENIX)";
           deband = false;
         };
         slow = {
-          vo = "gpu-next";
           vulkan-device = "NVIDIA GeForce RTX 4060 Laptop GPU";
           scale = "ewa_lanczos4sharpest";
           dscale = "ewa_lanczos4sharpest";
@@ -119,7 +119,23 @@ in
           hr-seek = true;
         };
       };
-      scripts = [ power-profile-script ];
+
+      scriptOpts = {
+        uosc = {
+          top_bar_controls = "no";
+        };
+      };
+      
+      scripts = with pkgs; [
+        power-profile-script
+        mpvScripts.mpris
+
+        mpvScripts.uosc
+        mpvScripts.thumbfast
+        mpvScripts.mpv-subtitle-lines
+        mpvScripts.quality-menu
+        mpvScripts.sponsorblock
+      ];
     };
   };
 }

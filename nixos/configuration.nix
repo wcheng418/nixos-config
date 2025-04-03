@@ -37,17 +37,19 @@
       allowUnfree = true;
       config.cudaSupport = true;
     };
+
     hostPlatform.system = builtins.currentSystem;
   };
 
   programs.nix-ld.enable = true;
 
   nix = {
+    daemonCPUSchedPolicy = "idle";
+    optimise.automatic = true;
     settings = {
       sandbox = "relaxed";
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
-      flake-registry = "";
     };
   };
 

@@ -1,9 +1,5 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  environment.systemPackages = [
-    pkgs.prismlauncher
-  ];
-  
   programs.steam = {
     enable = true;
     extest.enable = true;

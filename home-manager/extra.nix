@@ -7,7 +7,7 @@
         vim_keys = true;
         proc_sorting = "cpu lazy";
         color_theme = "dracula";
-        theme_background = "false";
+        theme_background = false;
         proc_tree = true;
         proc_filter_kernel = true;
         proc_aggregate = true;

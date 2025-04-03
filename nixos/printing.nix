@@ -1,9 +1,8 @@
-{ pkgs, ... }:
+{ ... }:
 {
   services = {
     printing = {
       enable = true;
-      drivers = with pkgs; [ postscript-lexmark ];
     };
 
     avahi = {

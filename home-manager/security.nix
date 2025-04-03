@@ -10,9 +10,9 @@
   programs = {
     ssh = {
       enable = true;
-      # matchBlocks."*" = {
-      #   forwardX11 = true;
-      # };
+      matchBlocks."*" = {
+        # forwardX11 = true;
+      };
       addKeysToAgent = "yes";
       controlMaster = "auto";
       serverAliveInterval = 3;
