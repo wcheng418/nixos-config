@@ -20,8 +20,8 @@
 
     git = {
       enable = true;
-      userName = "Pravin Ramana";
-      userEmail = "pravinramana25@protonmail.ch";
+      userName = "Wilson Cheng";
+      userEmail = "wilson.cheng.007@gmail.com";
       signing = { 
         signByDefault = true;
         key = null;
